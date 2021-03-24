@@ -8,7 +8,7 @@ const app = express();
 //const dbUrl = "mongodb://127.0.0.1:27017";
 //const dbUrl ="mongodb+srv://task_db:D2OW3FBnawvkk6QJ@taskone.2hsbk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-const dbUrl=process.env.DB_url || "mongodb://127.0.0.1:27017"
+const DB_URL=process.env.DB_URL ;
 const port=process.env.PORT;
 app.use(express.json());
 
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.get("/all", async (req, res) => {
   try {
-    let clientInfo = await mongoClient.connect(dbUrl);
+    let clientInfo = await mongoClient.connect(DB_URL);
     let db = clientInfo.db("data");
     let data = await db.collection("mentor").find().toArray();
     res.status(200).json(data);
@@ -29,7 +29,7 @@ app.get("/all", async (req, res) => {
 /** create mentor */
 app.post("/create_mentor", async (req,res) => {
   try{
-    let mentor=await mongoClient.connect(dbUrl);
+    let mentor=await mongoClient.connect(DB_URL);
     let db=mentor.db("data");
     console.log(req.body)
     const newMentor={
@@ -51,7 +51,7 @@ app.post("/create_mentor", async (req,res) => {
 
 app.get("/mentor/:id",async(req,res) => {
   try{
-  let client= await mongoClient.connect(dbUrl);
+  let client= await mongoClient.connect(DB_URL);
   let db=client.db("data");
    await db.collection("mentor").findOne({_id:objectId(req.params.id)});
   console.log(data)
@@ -64,7 +64,7 @@ app.get("/mentor/:id",async(req,res) => {
 /** assingn student */
 app.put('/assign_student/:id', async(req, res)=>{
   try{
-    let client=await mongoClient.connect(dbUrl);
+    let client=await mongoClient.connect(DB_URL);
     let db=client.db("database");
     await db.collection("mentor").findOneAndUpdate({_id:objectId(req.params.id)},{$set:req.body})
     
