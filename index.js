@@ -8,7 +8,7 @@ const app = express();
 //const dbUrl = "mongodb://127.0.0.1:27017";
 //const dbUrl ="mongodb+srv://task_db:D2OW3FBnawvkk6QJ@taskone.2hsbk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-const dbUrl="mongodb://127.0.0.1:27017"||process.env.DB_url
+const dbUrl=process.env.DB_url || "mongodb://127.0.0.1:27017"
 const port=process.env.PORT;
 app.use(express.json());
 
