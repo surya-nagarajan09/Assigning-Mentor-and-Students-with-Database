@@ -9,6 +9,7 @@ const app = express();
 //const dbUrl ="mongodb+srv://task_db:D2OW3FBnawvkk6QJ@taskone.2hsbk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 const dbUrl="mongodb://127.0.0.1:27017"||process.env.DB_url
+const port=process.env.PORT;
 app.use(express.json());
 
 /** mentor*/
@@ -82,4 +83,4 @@ app.put('/assign_student/:id', async(req, res)=>{
 
 
 
-app.listen(4000,() =>console.log("app runs with 4000"));
+app.listen(port,() =>console.log("app runs with" ,port));
