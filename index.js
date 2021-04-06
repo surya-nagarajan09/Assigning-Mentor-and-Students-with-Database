@@ -26,6 +26,42 @@ app.get("/all", async (req, res) => {
   }
 });
 
+// get all student
+
+app.get("/all_student", async (req, res) => {
+  try {
+    let clientInfo = await mongoClient.connect(DB_URL);
+    let db = clientInfo.db("data_student");
+    let data = await db.collection("student").find().toArray();
+    res.status(200).json(data);
+    clientInfo.close();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//create student
+
+app.post("/create_mentor", async (req,res) => {
+  try{
+    let student=await mongoClient.connect(DB_URL);
+    let db=mentor.db("data_student");
+    console.log(req.body)
+    const newStudent={
+      "id":req.body.id,
+      "name":req.body.name,
+      "mail":req.body.mail,
+      "student":req.body.student
+    }
+  await db.collection("student").insertOne(newStudent);
+    res.status(200).json({message:"mentor Created"});
+    mentor.close();
+  } catch(err)
+  {
+    console.log(err)
+  }
+})
+
 /** create mentor */
 app.post("/create_mentor", async (req,res) => {
   try{
@@ -78,7 +114,6 @@ app.put('/assign_student/:id', async(req, res)=>{
 
 
 
-/** create- student */
 
 
 
